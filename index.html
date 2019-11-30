@@ -1,28 +1,54 @@
 <html>
   <head>
     <title>DOODLE RICK</title>
+    <link rel = "stylesheet" type="text/css" href="styles.css" />
     <meta http-equiv="X-UA-Compatible" content="chrome=1, IE=edge">
       <style>
           body {
+            height:100%;
             margin:0px;
             padding:0px;
             text-align:center;
+            background-image: url('img/background1.jpeg');
+            margin-top: 150px;
+            margin-left: 70px;
           }
 
           canvas{
+            
             outline:0;
             border:1px solid #000;
-            margin-left: auto;
+            margin-left: 400px;
             margin-right: auto;
+            margin-top: -600px;
           }
+
+          
+    
       </style>
   </head>
   <body>
-  <h1>DOODLE RICK</h1>
-  <button  id= "singlePlayer" type="button">single player</button>
-  <button   id= "multiPlayer" type="button">multiplayer </button>
-	
-    <canvas id='c'></canvas>
+    <article class = "instrucciones">
+    <h1 class = "container"> DOODLE RICK </h1>
+    
+    <p class = "container">  get the 7 portal guns so you can get back to your dimension 
+      Single player 
+      Press A to move left
+      Press D to move right  
+       
+      
+      Multiplayer  
+                    
+          Press | to move left
+      Press  |> to move right </p> 
+    </article>
+
+     <article class= botones >
+  <button  class= botones1 id= "singlePlayer" type="button">single player</button>
+  <button  class= botones1 id= "multiPlayer" type="button">multiplayer </button>
+</article>
+    <canvas  id='c' ></canvas>
     <script src="main.js"></script>
   </body>
+  
 </html>
