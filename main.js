@@ -3,6 +3,7 @@ var width = 360,
   c = document.getElementById("c");
 movespeed = 10;
 frames = 0;
+var myMusic;
 
 //ctx = c.getContext('2d'),
 //snd = new Audio("sound/bounce.mp3"),
@@ -127,8 +128,9 @@ class Game {
     this.width = canvas.width;
     this.height = canvas.height;
     this.platforms = [];
-    this.platformAzul = [];
+    this.bluePlatform = [];
     this.snd = new Audio("img/bounce.mp3");
+    this.backSound = new Audio("img/rms.mp3");
     this.monsters = [];
     this.aliens = [];
     this.plasmas = [];
@@ -155,12 +157,14 @@ class Game {
   startGame() {
     clearInterval(this.interval)
       this.platforms =[];
-      this.platformAzul = [];
+      this.bluePlatform = [];
       this.monsters = [];
       this.aliens = [];
       this.plasmas = [];
       this.move = 0;
       this.gravity = "";
+      myMusic = new Audio("img/rms.mp3");
+      myMusic.play();
       this.count = 0;
       frames = 0;
     this.generatePlatform();
@@ -181,12 +185,12 @@ class Game {
           }
         });
         let newYPos = this.platforms[this.platforms.length - 1].y;
-        let newYPosAzul = this.platformAzul[this.platformAzul.length - 1].y;
+        let newYPosAzul = this.bluePlatform[this.bluePlatform.length - 1].y;
         this.platforms.push(
           new Plataform(pos, newYPos - 60, "./img/platform.png")
         );
-        if (frames % 50== 0) {
-            this.platformAzul.push(
+        if (frames % 3== 0) {
+            this.bluePlatform.push(
                 new Plataform(pos, newYPosAzul - 600, "./img/11.png")
             );
         }
@@ -233,6 +237,7 @@ class Game {
       } else {
         if (!this.players[0].isAlive) {
           this.terminarJuego();
+          myMusic.pause()
         }
       }
       this.drawScore();
@@ -274,6 +279,9 @@ class Game {
       this.snd.play();
     }
   }
+  backSoundMus(){
+     return this.backSound.play();
+  }
 
   generatePlatform() {
     let positions = [50,190,330,400];
@@ -287,7 +295,7 @@ class Game {
         );
     })
 
-    this.platformAzul.push(
+    this.bluePlatform.push(
         new Plataform(Math.floor(Math.random() * (width - 80)),
         this.height - 50, "./img/gun2.jpeg")
     );
@@ -299,6 +307,10 @@ class Game {
   drawBackground() {
     this.ctx.drawImage(this.img, 0, 0, this.width, this.height);
   }
+  backMusic() {
+
+    return this.backSound.play()
+  }
 
   drawPlayers() {
     this.players.forEach((player, indexP) => {
@@ -308,7 +320,7 @@ class Game {
           this.snd.play();
         }
       });
-      this.platformAzul.forEach(platform => {
+      this.bluePlatform.forEach(platform => {
         if (player.checkColissionFeet(platform) && player.gravity > 0) {
           player.gravity = -10;
           this.snd.play();
@@ -366,8 +378,8 @@ class Game {
     this.platforms.forEach(platform => {
       platform.drawItself(this.ctx, this.move);
     });
-    this.platformAzul.forEach( platformAzul => {
-        platformAzul.drawAzul(this.ctx, this.moveAzul, this.move);
+    this.bluePlatform.forEach( bluePlatform  => {
+      bluePlatform.drawAzul(this.ctx, this.moveAzul, this.move);
         // if(this.moveAzul< 340){
         //     this.moveAzul++
         // }
